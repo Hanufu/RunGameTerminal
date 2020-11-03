@@ -61,17 +61,30 @@ int main(){
 			printf("\n");
 		}
 		
-		//capturando tecla do usuario para mover o personagem
-		tecla = getch();
+		tecla = getch(); //capturando tecla do usuario para mover o personagem
 		
+		//fazendo ferificação da tecla para mover o personagem
 		if(tecla == 'd' || tecla == 'D'){
 			jogador.y++;
+			if(jogador.y >=14){
+				jogador.y--;
+			}
 		}else if(tecla == 'a' || tecla == 'A'){
 			jogador.y--;
+				if(jogador.y <=0){
+				jogador.y++;
+			}
 		}else if(tecla == 's' || tecla == 'S'){
 			jogador.x++;
+				if(jogador.x >=7){
+				jogador.x--;
+			}
 		}else if(tecla == 'w' || tecla == 'W'){
 			jogador.x--;
+				if(jogador.x <=0){
+				jogador.x++;
+			}
+			
 		}
 		
 		system("cls");// limpa a tela para fazer animação do personagem se movendo
