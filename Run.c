@@ -97,12 +97,14 @@ int main(){
 		printf("--------------------------------\n");
 		printf("|Pontuação:%2d                  |\n", jogador.pontos);
 		printf("|Vida Restante:%2d              |\n", jogador.vida);
+		printf("|Vida do inimigo Restante:%2d   |\n", inimigo.vida);
 		printf("--------------------------------\n");
 
 		
 		tecla = getch(); //capturando tecla do usuario para mover o personagem
 		
 		//fazendo ferificação da tecla para mover o personagem
+	
 		if(tecla == 'd' || tecla == 'D'){
 			jogador.y++;
 			if(jogador.y >=14){
@@ -128,7 +130,7 @@ int main(){
 		
 		//verifica se a posição do jogador = fruta e re calcula a posição da fruta
 			if(jogador.x == fruta.x && jogador.y == fruta.y){
-				
+				inimigo.vida--;
 				//verificação se ganhou o game
 				if(inimigo.vida ==0){
 					system("cls");
