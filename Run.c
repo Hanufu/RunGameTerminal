@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <time.h>
 struct frutas{
 	
 	int x;
 	int y;
+	char fruta;
+	
 };
 
 //Jogador e seus atributos
@@ -27,6 +30,7 @@ void menuGame(void){
 	}
 
 int main(){
+	inicio:
 	setlocale(LC_ALL, "Portuguese");//Transformando texto em nosso idioma Brasileiro
 	//caompo dos "apelidos" 
 	typedef struct frutas Frutas;
@@ -35,11 +39,20 @@ int main(){
 	//----------Campo das Variaveis-----------
 	int i,j ;
 	char tecla;
+	char jogarNovamente;
 
 	//fruta e posição incial fruta
 	Frutas fruta;
 	fruta.x = rand()%7;
 	fruta.y = rand()%14;
+	fruta.fruta = 'ó';
+	
+	//inimigo
+	Player inimigo;
+	inimigo.x = rand()%7;
+	inimigo.y = rand ()%14;
+	inimigo.user = 'I';
+	inimigo.vida = 3;
 	
 	// player
 	Player jogador;
@@ -47,6 +60,7 @@ int main(){
 	jogador.y =0;
 	jogador.user = '@';
 	jogador.pontos = 0;
+	jogador.vida = 3;
 	
 	
 	//----------Fim Campo Variaveis------------
@@ -63,7 +77,9 @@ int main(){
 				if(jogador.x == i && jogador.y==j){
 					mapa[i][j] = jogador.user;
 				}else if(fruta.x == i && fruta.y ==j){//verificação para para colocar a fruta no mapa
-					mapa[i][j] = 'ó';
+					mapa[i][j] = fruta.fruta;
+				}else if(inimigo.x == i && inimigo.y ==j){
+					mapa[i][j] = inimigo.user;
 				}else{
 					mapa[i][j] = '-';
 				}
@@ -80,7 +96,7 @@ int main(){
 		
 		printf("--------------------------------\n");
 		printf("|Pontuação:%2d                  |\n", jogador.pontos);
-		printf("|Vida Restante:                |\n");
+		printf("|Vida Restante:%2d              |\n", jogador.vida);
 		printf("--------------------------------\n");
 
 		
@@ -112,11 +128,73 @@ int main(){
 		
 		//verifica se a posição do jogador = fruta e re calcula a posição da fruta
 			if(jogador.x == fruta.x && jogador.y == fruta.y){
-				jogador.pontos += rand()%10;
+				
+				//verificação se ganhou o game
+				if(inimigo.vida ==0){
+					system("cls");
+					printf("PARABÉNS, VOCÊ GANHOU!");
+					printf("Quer jogar novamente?\n");
+					printf("Digite S ou N:");
+					jogarNovamente = getch();
+					if(jogarNovamente == 's' || jogarNovamente == 'S'){
+						system("cls");
+						goto inicio;
+					}else{
+						return 0;
+					}
+				}
+				
+				jogador.pontos++;
 				fruta.x = rand()%7;
 				fruta.y = rand()%14;
+				
+				//recalcula a posição do inimigo
+				inimigo.x = rand()%7;
+				inimigo.y = rand()%14;
 				printf("\a"); // o barra invertida a "\a" faz com que o sistema de um bipe, som padrão do sistema
 		}
+		
+		//movimentação inimigo
+		if(inimigo.x < jogador.x){
+			inimigo.x++;
+		}else if(inimigo.x > jogador.x){
+			inimigo.x--;
+		}
+		if(inimigo.y < jogador.y){
+			inimigo.y++;
+		}else if(inimigo.y > jogador.y){
+			inimigo.y--;
+		}
+		
+		//verificação da posição do inimigo com o jogador
+		if(inimigo.x == jogador.x && inimigo.y == jogador.y){
+			jogador.vida--; //remove 1 de vida do jogador
+			
+			//recalcula o valor a posição da fruta
+			fruta.x = rand()%7;
+			fruta.y = rand()%14;
+			
+			//recalcula a posição do jogador 
+			jogador.x = rand()%7;
+			jogador.y = rand()%14;
+		}
+		
+		//verifica se fim de game
+		if(jogador.vida == 0){
+			system("cls");
+			printf("Fim de jogo, você perdeu! \n");
+			printf("Quer jogar novamente?\n");
+			printf("Digite S ou N: ");
+			jogarNovamente = getch();
+			if(jogarNovamente == 's' || jogarNovamente == 'S'){
+				system("cls");
+				goto inicio;
+			}else{
+				return 0;
+			}
+			
+		}
+		
 		system("cls");// limpa a tela para fazer animação do personagem se movendo
 	}
 	
