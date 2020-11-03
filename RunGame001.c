@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <locale.h>
+
+//tamanho do mapa
+#define Altura 7
+#define Largura 14
 //Menu principal
 void menuGame(void){
 	printf("--------------------------------\n");
@@ -45,7 +49,7 @@ int main(){
 	
 	//----CAMPO DAS VARIAVEIS----//
 	int tamanhoMapa = 14*7; //tamanho do mapa
-	char mapa[tamanhoMapa]; // "o mapa"
+	char mapa[Altura][Largura]; // "o mapa"
 	int i,j; // variaveis auxiliares
 	char user ='@'; //caractere do usuario
 	int posicao =0; //posição do usuario no mapa

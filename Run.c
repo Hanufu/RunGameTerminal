@@ -36,7 +36,7 @@ int main(){
 	int i,j ;
 	char tecla;
 
-	//fruta
+	//fruta e posição incial fruta
 	Frutas fruta;
 	fruta.x = rand()%7;
 	fruta.y = rand()%14;
@@ -46,6 +46,8 @@ int main(){
 	jogador.x =0;
 	jogador.y =0;
 	jogador.user = '@';
+	jogador.pontos = 0;
+	
 	
 	//----------Fim Campo Variaveis------------
 	char mapa[7][14];
@@ -55,12 +57,12 @@ int main(){
 		
 		menuGame();
 		
-		//criando mapa
+		//GERA O MAPA, INIMIGO E FRUTAS
 		for(i = 0; i<7; i++){
 			for(j = 0; j<14; j++){
 				if(jogador.x == i && jogador.y==j){
 					mapa[i][j] = jogador.user;
-				}else if(fruta.x == i && fruta.y ==j){
+				}else if(fruta.x == i && fruta.y ==j){//verificação para para colocar a fruta no mapa
 					mapa[i][j] = 'ó';
 				}else{
 					mapa[i][j] = '-';
@@ -76,6 +78,12 @@ int main(){
 			printf("\n");
 		}
 		
+		printf("--------------------------------\n");
+		printf("|Pontuação:%2d                  |\n", jogador.pontos);
+		printf("|Vida Restante:                |\n");
+		printf("--------------------------------\n");
+
+		
 		tecla = getch(); //capturando tecla do usuario para mover o personagem
 		
 		//fazendo ferificação da tecla para mover o personagem
@@ -86,7 +94,7 @@ int main(){
 			}
 		}else if(tecla == 'a' || tecla == 'A'){
 			jogador.y--;
-				if(jogador.y <=0){
+				if(jogador.y <0){
 				jogador.y++;
 			}
 		}else if(tecla == 's' || tecla == 'S'){
@@ -96,12 +104,19 @@ int main(){
 			}
 		}else if(tecla == 'w' || tecla == 'W'){
 			jogador.x--;
-				if(jogador.x <=0){
+				if(jogador.x <0){
 				jogador.x++;
 			}
 			
 		}
 		
+		//verifica se a posição do jogador = fruta e re calcula a posição da fruta
+			if(jogador.x == fruta.x && jogador.y == fruta.y){
+				jogador.pontos += rand()%10;
+				fruta.x = rand()%7;
+				fruta.y = rand()%14;
+				printf("\a"); // o barra invertida a "\a" faz com que o sistema de um bipe, som padrão do sistema
+		}
 		system("cls");// limpa a tela para fazer animação do personagem se movendo
 	}
 	
