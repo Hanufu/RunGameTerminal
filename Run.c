@@ -2,7 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+struct frutas{
+	
+	int x;
+	int y;
+};
 
+//Jogador e seus atributos
 struct player{
 	char nome[50];
 	char user;
@@ -11,7 +17,6 @@ struct player{
 	int y;
 	int pontos;
 };
-
 //Menu principal
 void menuGame(void){
 	printf("--------------------------------\n");
@@ -21,19 +26,27 @@ void menuGame(void){
 	return ;
 	}
 
-
-
 int main(){
 	setlocale(LC_ALL, "Portuguese");//Transformando texto em nosso idioma Brasileiro
-	
-	//----------Campo das Variaveis-----------
+	//caompo dos "apelidos" 
+	typedef struct frutas Frutas;
 	typedef struct player Player;
+	srand(time(NULL));
+	//----------Campo das Variaveis-----------
 	int i,j ;
+	char tecla;
+
+	//fruta
+	Frutas fruta;
+	fruta.x = rand()%7;
+	fruta.y = rand()%14;
+	
+	// player
 	Player jogador;
 	jogador.x =0;
 	jogador.y =0;
 	jogador.user = '@';
-	char tecla;
+	
 	//----------Fim Campo Variaveis------------
 	char mapa[7][14];
 	
@@ -47,6 +60,8 @@ int main(){
 			for(j = 0; j<14; j++){
 				if(jogador.x == i && jogador.y==j){
 					mapa[i][j] = jogador.user;
+				}else if(fruta.x == i && fruta.y ==j){
+					mapa[i][j] = 'ó';
 				}else{
 					mapa[i][j] = '-';
 				}
