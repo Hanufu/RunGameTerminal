@@ -19,7 +19,7 @@ struct player{
 	int vida;
 	int x;
 	int y;
-	int pontos;
+	int movimentos;
 };
 //Menu principal
 void menuGame(void){
@@ -34,6 +34,7 @@ void tutorial(void){
 	printf("Pegue as frutas, ates que o Inimigo pegue você... \n");
 	printf("Cada um tem 3 vidas. a cada fruta pega inimigo perde 1 de vida. \n");
 	printf("cada vez que o inimigo te pegar a posição das coisas mudam e você perde 1 de vida.\n");
+	printf("PRECIONE QUALQUER TECLA PARA COMEÇAR \n");
 	getch();
 	system("cls");
 	return;
@@ -70,7 +71,7 @@ int main(){
 	jogador.x =0;
 	jogador.y =0;
 	jogador.user = '@';
-	jogador.pontos = 0;
+	jogador.movimentos = 0;
 	jogador.vida = 3;
 	
 	
@@ -106,7 +107,7 @@ int main(){
 		}
 		
 		printf("--------------------------------\n");
-		printf("|Pontuação:%2d                  |\n", jogador.pontos);
+		printf("|Movimentos:%2d                 |\n", jogador.movimentos);
 		printf("|Vida Restante:%2d              |\n", jogador.vida);
 		printf("|Vida do inimigo Restante:%2d   |\n", inimigo.vida);
 		printf("--------------------------------\n");
@@ -118,21 +119,25 @@ int main(){
 	
 		if(tecla == 'd' || tecla == 'D'){
 			jogador.y++;
+			jogador.movimentos++;
 			if(jogador.y >13){
 				jogador.y = 0;
 			}
 		}else if(tecla == 'a' || tecla == 'A'){
 			jogador.y--;
+			jogador.movimentos++;
 				if(jogador.y <0){
 				jogador.y = 13;
 			}
 		}else if(tecla == 's' || tecla == 'S'){
 			jogador.x++;
+			jogador.movimentos++;
 				if(jogador.x >6){
 				jogador.x = 0;
 			}
 		}else if(tecla == 'w' || tecla == 'W'){
 			jogador.x--;
+			jogador.movimentos++;
 				if(jogador.x <0){
 				jogador.x = 6;
 			}
@@ -145,7 +150,8 @@ int main(){
 				//verificação se ganhou o game
 				if(inimigo.vida ==0){
 					system("cls");
-					printf("PARABÉNS, VOCÊ GANHOU!\n ");
+					printf("PARABÉNS, VOCÊ GANHOU!\n");
+					printf("VOCÊ FEZ %d MOVIMENTOS\n", jogador.movimentos);
 					printf("Quer jogar novamente?\n");
 					printf("Digite S ou N:");
 					jogarNovamente = getch();
@@ -157,7 +163,6 @@ int main(){
 					}
 				}
 				
-				jogador.pontos++;
 				fruta.x = rand()%7;
 				fruta.y = rand()%14;
 				
@@ -211,9 +216,5 @@ int main(){
 		system("cls");// limpa a tela para fazer animação do personagem se movendo
 	}
 	
-	
-	
-	
-
 	return 0;
 }
