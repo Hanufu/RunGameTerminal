@@ -107,23 +107,23 @@ int main(){
 	
 		if(tecla == 'd' || tecla == 'D'){
 			jogador.y++;
-			if(jogador.y >=14){
-				jogador.y--;
+			if(jogador.y >13){
+				jogador.y = 0;
 			}
 		}else if(tecla == 'a' || tecla == 'A'){
 			jogador.y--;
 				if(jogador.y <0){
-				jogador.y++;
+				jogador.y = 13;
 			}
 		}else if(tecla == 's' || tecla == 'S'){
 			jogador.x++;
-				if(jogador.x >=7){
-				jogador.x--;
+				if(jogador.x >6){
+				jogador.x = 0;
 			}
 		}else if(tecla == 'w' || tecla == 'W'){
 			jogador.x--;
 				if(jogador.x <0){
-				jogador.x++;
+				jogador.x = 6;
 			}
 			
 		}
@@ -134,7 +134,7 @@ int main(){
 				//verificação se ganhou o game
 				if(inimigo.vida ==0){
 					system("cls");
-					printf("PARABÉNS, VOCÊ GANHOU!");
+					printf("PARABÉNS, VOCÊ GANHOU!\n");
 					printf("Quer jogar novamente?\n");
 					printf("Digite S ou N:");
 					jogarNovamente = getch();
