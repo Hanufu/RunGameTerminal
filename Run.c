@@ -3,6 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
+
 struct frutas{
 	
 	int x;
@@ -29,7 +30,17 @@ void menuGame(void){
 	return ;
 	}
 
+void tutorial(void){
+	printf("Pegue as frutas, ates que o Inimigo pegue você... \n");
+	printf("Cada um tem 3 vidas. a cada fruta pega inimigo perde 1 de vida. \n");
+	printf("cada vez que o inimigo te pegar a posição das coisas mudam e você perde 1 de vida.\n");
+	getch();
+	system("cls");
+	return;
+}
 int main(){
+	setlocale(LC_ALL, "Portuguese");//Transformando texto em nosso idioma Brasileiro
+	tutorial();
 	inicio:
 	setlocale(LC_ALL, "Portuguese");//Transformando texto em nosso idioma Brasileiro
 	//caompo dos "apelidos" 
@@ -134,7 +145,7 @@ int main(){
 				//verificação se ganhou o game
 				if(inimigo.vida ==0){
 					system("cls");
-					printf("PARABÉNS, VOCÊ GANHOU!\n");
+					printf("PARABÉNS, VOCÊ GANHOU!\n ");
 					printf("Quer jogar novamente?\n");
 					printf("Digite S ou N:");
 					jogarNovamente = getch();
